@@ -37,8 +37,14 @@ changelog:
       order: 999
 
 release:
-  footer: |
+  github:
+    owner: skatkov
+    name: sepatui
 
-    ---
-
-    _Released with [GoReleaser](https://goreleaser.com)!_
+brews:
+  - homepage: "https://github.com/skatkov/sepatui"
+    description: "A Terminal User Interface (TUI) application for viewing and analyzing SEPA XML payment files"
+    name: sepa
+    repository:
+      owner: skatkov
+      name: homebrew-tap
