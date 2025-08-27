@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"time"
 )
 
@@ -132,7 +132,7 @@ type SEPAField struct {
 
 // ParseSEPAFile parses a SEPA XML file and returns structured data
 func ParseSEPAFile(filepath string) (*SEPAData, error) {
-	data, err := ioutil.ReadFile(filepath)
+	data, err := os.ReadFile(filepath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read file: %w", err)
 	}
