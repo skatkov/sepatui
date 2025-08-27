@@ -19,6 +19,9 @@ cd sepatui
 go build -o sepa
 ```
 
+## From homebrew
+`brew install skatkov/tap/sepa`
+
 ### Usage
 
 ```bash
