@@ -17,6 +17,7 @@ builds:
     goos:
       - linux
       - darwin
+    binary: sepa
 
 changelog:
   sort: asc
