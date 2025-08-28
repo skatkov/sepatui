@@ -13,6 +13,9 @@ builds:
     mod_timestamp: "{{ .CommitTimestamp }}"
     flags: ["-trimpath"]
     targets: ["go_first_class"]
+    goos:
+      - linux
+      - darwin
 
 changelog:
   sort: asc
