@@ -9,13 +9,13 @@ import (
 
 // SEPA XML structures for pain.001.001.03 format
 type Document struct {
-	XMLName               xml.Name              `xml:"Document"`
+	XMLName                xml.Name               `xml:"Document"`
 	CustomerCreditTransfer CustomerCreditTransfer `xml:"CstmrCdtTrfInitn"`
 }
 
 type CustomerCreditTransfer struct {
-	GroupHeader   GroupHeader   `xml:"GrpHdr"`
-	PaymentInfo   PaymentInfo   `xml:"PmtInf"`
+	GroupHeader GroupHeader `xml:"GrpHdr"`
+	PaymentInfo PaymentInfo `xml:"PmtInf"`
 }
 
 type GroupHeader struct {
@@ -27,17 +27,17 @@ type GroupHeader struct {
 }
 
 type PaymentInfo struct {
-	PaymentInfoID       string                `xml:"PmtInfId"`
-	PaymentMethod       string                `xml:"PmtMtd"`
-	BatchBooking        string                `xml:"BtchBookg"`
-	NumberOfTxs         string                `xml:"NbOfTxs"`
-	ControlSum          string                `xml:"CtrlSum"`
-	PaymentTypeInfo     PaymentTypeInfo       `xml:"PmtTpInf"`
-	RequestedExecDate   string                `xml:"ReqdExctnDt"`
-	Debtor              PartyInfo             `xml:"Dbtr"`
-	DebtorAccount       Account               `xml:"DbtrAcct"`
-	DebtorAgent         FinancialInstitution  `xml:"DbtrAgt"`
-	ChargeBearer        string                `xml:"ChrgBr"`
+	PaymentInfoID        string               `xml:"PmtInfId"`
+	PaymentMethod        string               `xml:"PmtMtd"`
+	BatchBooking         string               `xml:"BtchBookg"`
+	NumberOfTxs          string               `xml:"NbOfTxs"`
+	ControlSum           string               `xml:"CtrlSum"`
+	PaymentTypeInfo      PaymentTypeInfo      `xml:"PmtTpInf"`
+	RequestedExecDate    string               `xml:"ReqdExctnDt"`
+	Debtor               PartyInfo            `xml:"Dbtr"`
+	DebtorAccount        Account              `xml:"DbtrAcct"`
+	DebtorAgent          FinancialInstitution `xml:"DbtrAgt"`
+	ChargeBearer         string               `xml:"ChrgBr"`
 	CreditTransferTxInfo CreditTransferTxInfo `xml:"CdtTrfTxInf"`
 }
 
@@ -76,12 +76,12 @@ type FinInstnID struct {
 }
 
 type CreditTransferTxInfo struct {
-	PaymentID        PaymentID            `xml:"PmtId"`
-	Amount           Amount               `xml:"Amt"`
-	CreditorAgent    FinancialInstitution `xml:"CdtrAgt"`
-	Creditor         PartyInfo            `xml:"Cdtr"`
-	CreditorAccount  Account              `xml:"CdtrAcct"`
-	RemittanceInfo   RemittanceInfo       `xml:"RmtInf"`
+	PaymentID       PaymentID            `xml:"PmtId"`
+	Amount          Amount               `xml:"Amt"`
+	CreditorAgent   FinancialInstitution `xml:"CdtrAgt"`
+	Creditor        PartyInfo            `xml:"Cdtr"`
+	CreditorAccount Account              `xml:"CdtrAcct"`
+	RemittanceInfo  RemittanceInfo       `xml:"RmtInf"`
 }
 
 type PaymentID struct {
@@ -177,7 +177,7 @@ func convertToSEPAData(doc *Document) *SEPAData {
 	// Credit Transfer Transaction Info
 	txInfo := pmtInfo.CreditTransferTxInfo
 	fields = append(fields, SEPAField{"Transaction", "End to End ID", txInfo.PaymentID.EndToEndID})
-	fields = append(fields, SEPAField{"Transaction", "Amount", fmt.Sprintf("%s %s", txInfo.Amount.InstructedAmount.Value, txInfo.Amount.InstructedAmount.Currency)})
+	fields = append(fields, SEPAField{"Transaction", fmt.Sprintf("Amount (%s)", txInfo.Amount.InstructedAmount.Currency), txInfo.Amount.InstructedAmount.Value})
 
 	// Creditor Info
 	fields = append(fields, SEPAField{"Creditor", "Name", txInfo.Creditor.Name})
